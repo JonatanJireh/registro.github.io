@@ -16,7 +16,7 @@
         <div class="buttons">
             <button id="showIncomeForm">Registrar Ingreso</button>
             <button id="showExpenseForm">Registrar Egreso</button>
-            <button id="clearData">Borrar Datos</button>
+            <button id="viewTransactions">Ver Transacciones</button>
         </div>
         <div id="incomeForm" class="form hidden">
             <h2>Registrar Ingreso</h2>
@@ -34,22 +34,6 @@
                 <option value="Devuelto">Devuelto</option>
             </select>
             <button id="addExpense">Agregar Egreso</button>
-        </div>
-        <div class="transactions">
-            <h2>Transacciones</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Tipo</th>
-                        <th>Monto</th>
-                        <th>Detalles</th>
-                        <th>Devolver a</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody id="transactionTable">
-                </tbody>
-            </table>
         </div>
     </div>
     <script src="script.js"></script>

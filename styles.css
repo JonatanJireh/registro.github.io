@@ -23,7 +23,15 @@ h1 {
 }
 
 .total {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
+}
+.total h2, .total h3 {
+    margin: 0;
+    padding: 10px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
 }
 
 .buttons button {

@@ -10,13 +10,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const showExpenseFormButton = document.getElementById('showExpenseForm');
     const addIncomeButton = document.getElementById('addIncome');
     const addExpenseButton = document.getElementById('addExpense');
-    const clearDataButton = document.getElementById('clearData');
-    const transactionTable = document.getElementById('transactionTable');
+    const viewTransactionsButton = document.getElementById('viewTransactions');
+
+    function updateTotals() {
+        totalDisplay.textContent = total.toFixed(2);
+        totalToReturnDisplay.textContent = totalToReturn.toFixed(2);
+    }
 
     function loadTransactions() {
         const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
         transactions.forEach(transaction => {
-            addTransactionToTable(transaction.type, transaction.amount, transaction.details, transaction.returnTo, transaction.returnStatus);
             if (transaction.type === 'income') {
                 total += transaction.amount;
             } else {
@@ -29,53 +32,10 @@ document.addEventListener('DOMContentLoaded', function () {
         updateTotals();
     }
 
-    function updateTotals() {
-        totalDisplay.textContent = total.toFixed(2);
-        totalToReturnDisplay.textContent = totalToReturn.toFixed(2);
-    }
-
     function saveTransaction(type, amount, details, returnTo, returnStatus) {
         const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
         transactions.push({ type, amount, details, returnTo, returnStatus });
         localStorage.setItem('transactions', JSON.stringify(transactions));
-    }
-
-    function addTransactionToTable(type, amount, details, returnTo, returnStatus) {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${type === 'income' ? 'Ingreso' : 'Egreso'}</td>
-            <td>$${amount.toFixed(2)}</td>
-            <td>${details}</td>
-            <td>${type === 'income' ? '' : returnTo}</td>
-            <td>${type === 'income' ? '' : `<select class="returnStatus">
-                    <option value="No devuelto" ${returnStatus === 'No devuelto' ? 'selected' : ''}>No devuelto</option>
-                    <option value="Devuelto" ${returnStatus === 'Devuelto' ? 'selected' : ''}>Devuelto</option>
-                </select>`}</td>
-        `;
-        if (type === 'expense') {
-            row.querySelector('.returnStatus').addEventListener('change', updateReturnStatus);
-        }
-        transactionTable.appendChild(row);
-    }
-
-    function updateReturnStatus(event) {
-        const row = event.target.closest('tr');
-        const index = Array.from(transactionTable.children).indexOf(row);
-        const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-        const transaction = transactions[index];
-
-        const oldStatus = transaction.returnStatus;
-        transaction.returnStatus = event.target.value;
-        localStorage.setItem('transactions', JSON.stringify(transactions));
-
-        if (oldStatus !== transaction.returnStatus) {
-            if (transaction.returnStatus === 'Devuelto') {
-                totalToReturn -= transaction.amount;
-            } else {
-                totalToReturn += transaction.amount;
-            }
-            updateTotals();
-        }
     }
 
     function addTransaction(type) {
@@ -89,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        addTransactionToTable(type, amount, details, returnTo, returnStatus);
         saveTransaction(type, amount, details, returnTo, returnStatus);
 
         if (type === 'income') {
@@ -113,14 +72,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function clearData() {
-        localStorage.removeItem('transactions');
-        transactionTable.innerHTML = '';
-        total = 0;
-        totalToReturn = 0;
-        updateTotals();
-    }
-
     showIncomeFormButton.addEventListener('click', function () {
         incomeForm.classList.remove('hidden');
         expenseForm.classList.add('hidden');
@@ -139,7 +90,9 @@ document.addEventListener('DOMContentLoaded', function () {
         addTransaction('expense');
     });
 
-    clearDataButton.addEventListener('click', clearData);
+    viewTransactionsButton.addEventListener('click', function () {
+        window.location.href = 'transactions.html';
+    });
 
     loadTransactions();
 });

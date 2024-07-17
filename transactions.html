@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transacciones</title>
+    <link rel="stylesheet" href="transactions.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Transacciones</h1>
+        <div class="total">
+            <h2>Total en Caja: Bs <span id="total">0.00</span></h2>
+            <h3>Total para Devolver: Bs <span id="totalToReturn">0.00</span></h3>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Monto</th>
+                    <th>Detalles</th>
+                    <th>Devolver a</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody id="transactionTable">
+            </tbody>
+        </table>
+        <div class="buttons">
+            <button id="backToMain">Volver</button>
+            <button id="clearData">Borrar Datos</button>
+        </div>
+    </div>
+    <script src="transactions.js"></script>
+</body>
+</html>
