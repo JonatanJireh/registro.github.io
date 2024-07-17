@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Caja</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gestión de Caja</h1>
+        <div class="total">
+            <h2>Total en Caja: Bs<span id="total">0.00</span></h2>
+        </div>
+        <div class="buttons">
+            <button id="showIncomeForm">Registrar Ingreso</button>
+            <button id="showExpenseForm">Registrar Egreso</button>
+        </div>
+        <div id="incomeForm" class="form hidden">
+            <h2>Registrar Ingreso</h2>
+            <input type="number" id="incomeAmount" placeholder="Monto" step="0.01">
+            <input type="text" id="incomeDetails" placeholder="Detalles">
+            <button id="addIncome">Agregar Ingreso</button>
+        </div>
+        <div id="expenseForm" class="form hidden">
+            <h2>Registrar Egreso</h2>
+            <input type="number" id="expenseAmount" placeholder="Monto" step="0.01">
+            <input type="text" id="expenseDetails" placeholder="Detalles">
+            <input type="text" id="returnTo" placeholder="Devolver a...">
+            <select id="returnStatus">
+                <option value="No devuelto">No devuelto</option>
+                <option value="Devuelto">Devuelto</option>
+            </select>
+            <button id="addExpense">Agregar Egreso</button>
+        </div>
+        <div class="transactions">
+            <h2>Transacciones</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Monto</th>
+                        <th>Detalles</th>
+                        <th>Devolver a</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="transactionTable">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
